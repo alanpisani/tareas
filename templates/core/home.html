@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <div class="container-lg container-style centrado pt-2 mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="titulo">Nueva tarea</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/registrar_tarea/" method="POST" id="formulario">{% csrf_token %}
+                            <div class="form-group">
+                                <input autofocus required type="text" name="tarea" id="input-tarea" class="form-control"
+                                    minlength="3" maxlength="100" placeholder="Ingrese tarea">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="btn-aniadir" class="btn btn-success btn-block text-white mt-3"
+                                    value="Añadir">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2 class="titulo">Lista de Tareas</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>#</th>
+                            <th>Tarea</th>
+                            <th colspan="2">Opciones</th>
+                        </thead>
+                        <tbody>
+                            {% for tarea in tareas %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                {% if tarea.completado%}
+                                <td id="tarea" class="tachar">{{tarea}}</td>
+                                {% else %}
+                                <td id="tarea">{{tarea}}</td>
+                                {% endif %}
+                                <td hidden>{{tarea.completado}}</td>
+                                <td><a href="/tachar_tarea/{{tarea.id}}"
+                                        class="btn btn-sm btn-block btn-info">{% if tarea.completado %}Destachar{% else %}Tachar{% endif %}</a></td>
+                                    <td><a href="/borrar_tarea/{{tarea.id}}" id="btn-eliminar"
+                                        class="btn btn-sm btn-block btn-danger">Eliminar</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

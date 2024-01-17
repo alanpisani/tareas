@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+{% load allauth account %}
+{% block head_title %}
+    {% trans "Sign In" %}
+{% endblock head_title %}
+{% block content %}
+
+    <div class="col-md-4 mx-auto text-white mt-5 border p-3" >
+        {% element h1 %}
+            {% trans "Sign In" %}
+        {% endelement %}
+        <p>Si aún no ha creado una cuenta, por favor
+        <a href="{{ signup_url }}">Registrarse</a> primero.</p>
+    
+        {% url 'account_login' as login_url %}
+        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+        {{ form|crispy }}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+                {% if redirect_field_value %}
+                    <input type="hidden"
+                        name="{{ redirect_field_name }}"
+                        value="{{ redirect_field_value }}" />
+                {% endif %}
+            {% endslot %}
+            {% slot actions %}  
+                <button type="submit" tags="prominent,login" class="btn btn-dark">
+                    {% trans "Sign In" %}
+                </button>
+            {% endslot %}
+        
+        {% endelement %}
+        {% if SOCIALACCOUNT_ENABLED %}
+            {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+        {% endif %}
+    </div>
+{% endblock content %}

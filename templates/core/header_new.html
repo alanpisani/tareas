@@ -1,0 +1,16 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Acerca de</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Contacto</a></li>
+                <li><a href="#" class="nav-link px-2 text-white">Preguntas frecuentes</a></li>
+            </ul>
+            <div class="text-end">
+                <a href="{% url 'account_login' %}" class="btn btn-outline-light me-2">Conectarse</a>
+                <a href="{% url 'account_signup' %}" class="btn btn-warning">Registrarse</a>
+            </div>
+        </div>
+    </div>
+</header>
